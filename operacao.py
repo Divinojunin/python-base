@@ -19,10 +19,13 @@ operação: sum
 n1 : 5
 n2 : 4
 9
+
+Os resultados serão salvos em 'operacao.txt'
 """
 
-__version__ = "0.1.0"
-
+__version__ = "0.1.0" 
+from datetime import datetime
+import os
 import sys
 arguments = sys.argv[1:]
 
@@ -71,5 +74,12 @@ elif operação == "divisão":
     resultado = n1 / n2
 elif operação == "multiplicação":
     resultado = n1 * n2
+
+path = os.curdir
+filepath = os.path.join(path, 'operacao.log')
+timestamp = datetime.now().isoformat()
+user = os.getenv('USER', 'anonymous')
+with open(filepath, "a") as file_:
+    file_.write(f"{timestamp} - {user} - {operação}, {n1}, {n2} = {resultado}\n")
 
 print(f"O resultado é {resultado}")
